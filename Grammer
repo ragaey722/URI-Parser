@@ -1,0 +1,21 @@
+URI = scheme ":" hierarchical [ "?" query ]
+hierarchical = "//" authority path
+scheme = ALPHA *( ALPHA / DIGIT )
+authority = [ userinfo "@" ] host
+userinfo = *( pchar / ":" )
+host = IPv4address / reg - name
+IPv4address = dec - octet "." dec - octet "." dec - octet "." dec - octet
+dec - octet = ["0" ["0"]] DIGIT ; 000 -009 with optional leading zeros
+/ ["0"] "1" -"9" DIGIT ; 010 -099
+/ "1" DIGIT DIGIT ; 100 -199
+/ "2" "0" -"4" DIGIT ; 200 -249
+/ "25" "0" -"5" ; 250 -255
+reg - name = * pchar
+path = *( "/" * pchar ) ; begins with "/" or is empty
+query = *( pchar / "&" / "=" )
+pchar = unreserved / pct - encoded
+unreserved = ALPHA / DIGIT / "."
+pct - encoded = "%" HEXDIGIT HEXDIGIT
+ALPHA = " A " -" Z" / "a " -" z "
+DIGIT = "0" -"9"
+HEXDIGIT = DIGIT / "A " -" F" / "a " -" f "
